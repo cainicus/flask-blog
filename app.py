@@ -1,3 +1,4 @@
+import os
 import random
 from datetime import date
 from functools import wraps
@@ -46,7 +47,9 @@ def load_user(user_id):
 
 
 # CONNECT TO DB
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://dingusblogdb_user:4WS4d7Qe6f1PUzewYGhSV8EYPFFmwsKw@dpg-cj56da1itvpc73a703ug-a.oregon-postgres.render.com/dingusblogdb"
+# postgres://dingusblogdb_user:4WS4d7Qe6f1PUzewYGhSV8EYPFFmwsKw@dpg-cj56da1itvpc73a703ug-a.oregon-postgres.render.com/dingusblogdb
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
@@ -68,11 +71,11 @@ class BlogPost(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     author = db.relationship("User", backref=db.backref('posts'))
     author_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    title = db.Column(db.String(250), unique=True, nullable=False)
-    subtitle = db.Column(db.String(250), nullable=False)
-    date = db.Column(db.String(250), nullable=False)
+    title = db.Column(db.String(), unique=True, nullable=False)
+    subtitle = db.Column(db.String(), nullable=False)
+    date = db.Column(db.String(), nullable=False)
     body = db.Column(db.Text, nullable=False)
-    img_url = db.Column(db.String(250), nullable=False)
+    img_url = db.Column(db.String(), nullable=False)
 
 
 class Comment(db.Model):
