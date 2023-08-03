@@ -1,3 +1,4 @@
+import os
 import random
 from datetime import date
 from functools import wraps
@@ -47,7 +48,7 @@ def load_user(user_id):
 
 # CONNECT TO DB
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://dingusblogdb_user:4WS4d7Qe6f1PUzewYGhSV8EYPFFmwsKw@dpg-cj56da1itvpc73a703ug-a.oregon-postgres.render.com/dingusblogdb"
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('BLOG_DATABASE_URL')
 # postgres://dingusblogdb_user:4WS4d7Qe6f1PUzewYGhSV8EYPFFmwsKw@dpg-cj56da1itvpc73a703ug-a.oregon-postgres.render.com/dingusblogdb
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
